@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="wrapper" style="background-color: #000080">
+        <nav class="navbar navbar-light bg-transparent">
+            <div class="container">
+                <div id="myNav" class="overlay">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <div class="overlay-content">
+                        <a href="{% url 'products:index' %}">Home</a>
+                        <a href="#">Services</a>
+                        <a href="#">Clients</a>
+                        <a href="#">Contact</a>
+                        <a href="https://goo.gl/maps/HS9xcYXJ96iqL34x9">Location</a>
+                    </div>
+                </div>
+                <span style="font-size:30px;cursor:pointer; color: white" onclick="openNav()">&#9776;</span>
+
+                <a class="navbar-brand" href="#">
+                    <img src="/media/images/slider_arrows/mc_logo_3.png" alt="" width="160" height="auto">
+                </a>
+                <div class="square" style="background-color: #000080; height: 50px; width: 50px"></div>
+            </div>
+        </nav>
+    </div>
+
+    <div style="text-align: right;">
+        {% if user.is_authenticated %}
+            <span id="user-name" style=" font-size: 1.5rem">{{ request.user }}</span>
+            <img src="/media/images/user_logo.png" alt=""
+                 style="height: 40px; width: 40px; border-radius: 50%; border: 4px solid #fff; position: relative;">
+            <a href="{% url 'products:logout' %}">
+                <span style="padding-right: 10px;">Logout</span>
+            </a>
+
+        {% else %}
+            <div class="login" style="padding-top: 10px; padding-right: 15px;">
+                <a href="{% url 'products:login' %}">
+                    <button type="button" class="btn btn-primary">login/signup</button>
+                </a>
+            </div>
+
+
+
+        {% endif %}
+
+    </div>
+
+    <div class="parallax">
+        {#    <h1 style="text-align: right">Hello...</h1>#}
+        {#    <span class="las la-user" style="color: black; align-items: normal; font-size: 5rem"></span>#}
+    </div>
+
+
+
+    {% for p in product_list %}
+        {% if p.latest == True %}
+            <div class="post" style="padding: 20px; display: inline-grid">
+                <div class="row">
+
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <a href="{% url 'products:productdetail' p.slug %}"><img src="{{ p.image.url }}"
+                                                                                     class="card-img-top"
+                                                                                     alt="{{ p.make }} image"></a>
+                            <div class="card-body">
+                                <p class="card-text"><h5>{{ p.make }}</h5>
+                                <ul style="list-style:none">
+                                    <li><h6><span class="las la-car" style="font-size: 1.5rem"></span> {{ p.model }}
+                                    </h6></li>
+                                    <li><h6><img src="https://img.icons8.com/ios/20/000000/engine.png"/> {{ p.cc }}</h6>
+                                    </li>
+                                    <li><h6><span class="las la-gas-pump" style="font-size: 1.5rem"></span> {{ p.fuel }}
+                                    </h6></li>
+
+                                    {% if p.negotiable == True %}
+                                        <li>
+                                            <h5 style="color: rgb(0, 179, 0)">Ksh{{ p.price }}<sup
+                                                    style="color: black">Negotiable...</sup>
+                                            </h5>
+                                        </li>
+                                    {% else %}
+                                        <li>
+                                            <h5 style="color: rgb(0, 179, 0)">Ksh{{ p.price }}</h5>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        {% endif %}
+
+    {% endfor %}
+
+
+
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section contact">
+                <h1>Mwalimu Cars</h1>
+                <h4>Contacts</h4>
+                <ul>
+                    <li>Phone no: +254 712345678</li>
+
+                    <li>Email: mwalimu@gmail.com</li>
+
+                    <li>Facebook: <a
+                            href="https://www.facebook.com/search/photos/?q=mwalimu%20cars&sde=AbpdanbpUAcCWFgUJs_x5ftXu5HEdFvI9VauFlzpQLqQJZrGHXGVn3WjQSN3SZ62fT-0Rf1bPqdTIkRHlUWBkXWqig3Bn3WZvK8RSiMNC9GlySdovNAIs7KzCmVwNfLxgvA&_rdc=1&_rdr">facebook</a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="footer-section links">
+                <h4>Quick links</h4>
+                <ul>
+                    <a href="#">
+                        <li>About</li>
+                    </a>
+                    <a href="#">
+                        <li>Contact</li>
+                    </a>
+                    <a href="https://goo.gl/maps/HS9xcYXJ96iqL34x9">
+                        <li>Location</li>
+                    </a>
+                    <a href="#">
+                        <li>Register</li>
+                    </a>
+
+                </ul>
+            </div>
+
+            {#            <div class="footer-section contact-form">#}
+            {#                <h4>Contact us</h4>#}
+            {#                <br>#}
+            {#                <form action="index html" method="post">#}
+            {#                    <input type="email" name="email" class="text-input contact-input"#}
+            {#                           placeholder="Enter email address...">#}
+            {#                    <textarea name="message" class="text-input contact-input"></textarea>#}
+            {#                    <button type="submit" class="btn btn-big">#}
+            {#                        Send#}
+            {#                        <i class="fas fa-envelope"></i>#}
+            {#                    </button>#}
+            {#                </form>#}
+            {#            </div>#}
+        </div>
+        <div class="footer-bottom">
+            &copy;2021 | All rights reserved
+        </div>
+    </div>
+
+{% endblock %}

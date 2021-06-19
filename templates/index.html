@@ -1,0 +1,384 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="wrapper" style="background-color: #000080">
+        {# #0b3a56#}
+        <nav class="navbar navbar-light bg-transparent" style="width: 100%">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <!--<video autoplay muted playsinline style="pointer-events: none;" controls loop width="160"
+                           height="auto">
+                        <source src='../media/images/animate_logo/mc_animated_logo0001-0250.mp4' type='video/mp4'
+                                alt="">
+                        Your browser does not support the video tag.
+                    </video>-->
+                    <img src="../media/images/animate_logo/mc_logo_3.png" alt="" width="170" height="auto">
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <div style="text-align: right;">
+    {% if user.is_authenticated %}
+        <span id="user-name" style=" font-size: 1.5rem">{{ request.user }}</span>
+        <img src="/media/images/user_logo.png" alt="" style="height: 40px; width: 40px; border-radius: 50%; border: 4px solid #fff; position: relative;">
+        <a href="{% url 'products:logout' %}">
+            <span style="padding-right: 10px;">Logout</span>
+        </a>
+
+        {% else %}
+        <div class="login" style="padding-top: 10px; padding-right: 15px;">
+        <a href="{% url 'products:login' %}">
+            <button type="button" class="btn btn-primary">login/signup</button>
+        </a>
+        </div>
+
+
+
+    {% endif %}
+
+    </div>
+
+    <div class="container" style="padding-top: 20px; padding-bottom: 20px;">
+        <div class="card" style="border-color: #bfbfbf;">
+            <div class="card-header" style="background-color: #d9d9d9">
+                <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                                type="button" role="tab" aria-controls="home" aria-selected="true">New
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                                type="button" role="tab" aria-controls="profile" aria-selected="false">Used
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact"
+                                type="button" role="tab" aria-controls="contact" aria-selected="false">Import
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                    <form>
+                        <div class="container" style="padding-top: 20px; padding-bottom: 15px;">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Make</option>
+                                {% for p in product_list %}
+                                    <option value="{{ p.car_brand }}">
+                                        {{ p.car_brand }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="container" style="padding-bottom: 15px;">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Model</option>
+                                {% for p in product_list %}
+                                    <option value="{{ p.model }}">
+                                        {{ p.model }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="container" style="padding-bottom: 15px;">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Price range</option>
+                                {% for p in product_list %}
+                                    <option value="{{ p.price }}">
+                                        {{ p.price }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        {% csrf_token %}
+                        <a href="{% url 'products:new' %}">
+                            <div class="d-grid gap-2 col-6 mx-auto" style="padding-bottom: 10px;">
+                                <button class="btn btn-primary" type="button">Search</button>
+                            </div>
+                        </a>
+                    </form>
+
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                    <form>
+                        <div class="container" style="padding-top: 20px; padding-bottom: 15px;">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Make</option>
+                                {% for p in product_list %}
+                                    <option value="{{ p.car_brand }}">
+                                        {{ p.car_brand }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="container" style="padding-bottom: 15px;">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Model</option>
+                                {% for p in product_list %}
+                                    <option value="{{ p.model }}">
+                                        {{ p.model }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="container" style="padding-bottom: 15px;">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Price range</option>
+                                {% for p in product_list %}
+                                    <option value="{{ p.price }}">
+                                        {{ p.price }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        {% csrf_token %}
+                        <a href="{% url 'products:used' %}">
+                            <div class="d-grid gap-2 col-6 mx-auto" style="padding-bottom: 10px;">
+                                <button class="btn btn-primary" type="button">Search</button>
+                            </div>
+                        </a>
+                    </form>
+
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+{#                    <h5 style="padding-left: 10px">We really apologize for the inconvenience:(...working on this#}
+{#                    area...</h5>#}
+                <span class="las la-tools" style="font-size: 7rem; display: flex; align-items: center; justify-content: center"></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card" style="border-color: #bfbfbf;">
+                <!--            <h1>Poster 1</h1>-->
+                <img src="/media/images/posters/poster_1.png" alt="" height="100%">
+            </div>
+        </div>
+    </div>
+
+    <!-- page-wrapper -->
+    <div class="page-wrapper">
+
+        <!-- products slider -->
+        <div class="post-slider">
+            <h1 style="text-align: center; font-family: 'Quicksand', sans-serif;">Vehicles on market</h1>
+            <i class="fas fa-chevron-left prev"></i>
+            <i class="fas fa-chevron-right next"></i>
+
+            <div class="post-wrapper">
+                {% for p in product_list %}
+                    <div class="post">
+                        <div class="row">
+
+                            <div class="col">
+                                <div class="card" style="width: 18rem;">
+                                    <a href="{% url 'products:productdetail' p.slug %}"><img src="{{ p.image.url }}"
+                                                                                             class="card-img-top"
+                                                                                             alt="{{ p.make }} image"></a>
+                                    <div class="card-body">
+                                        <p class="card-text"><h5>{{ p.make }}</h5>
+                                        <ul style="list-style:none">
+                                            <li><h6>{{ p.model }}</h6></li>
+                                            <li><h6>{{ p.cc }}</h6></li>
+                                            <li><h6>{{ p.fuel }}</h6></li>
+
+                                            {% if p.negotiable == True %}
+                                                <li>
+                                                    <h5 style="color: rgb(0, 179, 0)">Ksh{{ p.price }}<sup
+                                                            style="color: black">Negotiable...</sup>
+                                                    </h5>
+                                                </li>
+                                            {% else %}
+                                                <li>
+                                                    <h5 style="color: rgb(0, 179, 0)">Ksh{{ p.price }}</h5>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+{#                <div class="post">2</div>#}
+{#                <div class="post">3</div>#}
+{#                <div class="post">4</div>#}
+{#                <div class="post">5</div>#}
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="col" style="padding-bottom: 10px;">
+            <div class="card" style="border-color: #bfbfbf;">
+                <!--            <h1>Poster 2</h1>-->
+                <img src="/media/images/posters/poster2.png" alt="">
+            </div>
+        </div>
+    </div>
+
+    <h5 style="text-align: center; font-family: 'Quicksand', sans-serif;"><b>Common vehicle brands</b></h5>
+
+    <div class="row">
+        {% for b in brand %}
+            <div class="col">
+<!--                <div class="card" style="border-color: white;">-->
+                    <div class="card" style="border-color: white;">
+                        <img src="{{ b.logo_image.url }}" class="card-img" alt="{{ b.car_brand }} logo image">
+                        <div class="card-body">
+                            <p class="card-text" style="text-align: center; font-family: 'Quicksand', sans-serif;">{{ b.car_brand }}</p>
+                        </div>
+
+                    </div>
+<!--                </div>-->
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <div class="col" style="padding-top: 10px; padding-bottom: 10px;">
+            <div class="card" style="border-color: #bfbfbf;">
+                <!--            <h1>Poster 3</h1>-->
+                <img src="/media/images/posters/poster4.png" alt="" height="100%">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col" style="padding-top: 10px; padding-bottom: 10px;">
+            <a href="{% url 'products:latest' %}">
+            <div class="card" style="border-color: #bfbfbf;">
+                <!--            <h1>Poster 4</h1>-->
+
+                    <img src="/media/images/posters/poster_3.png" alt="" height="100%">
+
+            </div>
+                </a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section contact">
+                <h1>Mwalimu Cars</h1>
+                <h4>Contacts</h4>
+                <ul>
+                    <li>Phone no: +254 712345678</li>
+
+                    <li>Email: mwalimu@gmail.com</li>
+
+                    <li>Facebook: <a
+                            href="https://www.facebook.com/search/photos/?q=mwalimu%20cars&sde=AbpdanbpUAcCWFgUJs_x5ftXu5HEdFvI9VauFlzpQLqQJZrGHXGVn3WjQSN3SZ62fT-0Rf1bPqdTIkRHlUWBkXWqig3Bn3WZvK8RSiMNC9GlySdovNAIs7KzCmVwNfLxgvA&_rdc=1&_rdr">facebook</a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="footer-section links">
+                <h4>Quick links</h4>
+                <ul>
+                    <a href="#">
+                        <li>About</li>
+                    </a>
+                    <a href="#">
+                        <li>Contact</li>
+                    </a>
+                    <a href="https://goo.gl/maps/HS9xcYXJ96iqL34x9">
+                        <li>Location</li>
+                    </a>
+                    <a href="#">
+                        <li>Register</li>
+                    </a>
+
+                </ul>
+            </div>
+
+{#            <div class="footer-section contact-form">#}
+{#                <h4>Contact us</h4>#}
+{#                <br>#}
+{#                <form action="index html" method="post">#}
+{#                    <input type="email" name="email" class="text-input contact-input"#}
+{#                           placeholder="Enter email address...">#}
+{#                    <textarea name="message" class="text-input contact-input"></textarea>#}
+{#                    <button type="submit" class="btn btn-big">#}
+{#                        Send#}
+{#                        <i class="fas fa-envelope"></i>#}
+{#                    </button>#}
+{#                </form>#}
+{#            </div>#}
+        </div>
+        <div class="footer-bottom">
+            &copy;2021 | All rights reserved
+        </div>
+    </div>
+
+
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
+    <!--<script src="https://code.jquery.com/jquery-2.1.4.js"></script>-->
+
+    <script type="text/javascript">
+
+        $('.post-wrapper').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            nextArrow: $('.next'),
+            prevArrow: $('.prev'),
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+                // You can unslick at a given breakpoint now by adding:
+                // settings: "unslick"
+                // instead of a settings object
+            ]
+        });
+
+    </script>
+{% endblock %}

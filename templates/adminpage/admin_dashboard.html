@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+<!--      <link rel="stylesheet" href="templates/css/styles.css">-->
+
+    <title>Mwalimu Cars</title>
+
+      <style>
+          @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+          :root {
+            --main: orange;
+            --bg: #0B1218;
+            --bg-body: #131D28;
+          }
+          * {
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+          }
+
+          input, button {
+            outline: none;
+          }
+
+          #menu-toggle {
+            display: none;
+          }
+
+          #menu-toggle:checked ~ .sidebar .brand h2 {
+            display: none;
+          }
+
+          #menu-toggle:checked ~ .sidebar .side-img {
+            height: 50px;
+            width: 50px;
+          }
+
+          #menu-toggle:checked ~ .sidebar .user {
+            display: none;
+          }
+
+          #menu-toggle:checked ~ .sidebar li a span:last-child {
+            display: none;
+          }
+
+          #menu-toggle:checked ~ .sidebar  {
+            width: 65px;
+          }
+
+          #menu-toggle:checked ~ .main-content header {
+            left: calc(65px + 1rem);
+          }
+
+          #menu-toggle:checked ~ .main-content {
+            margin-left: 65px;
+          }
+
+          .sidebar {
+            height: 100%;
+            left: 0;
+            top: 0;
+            position: fixed;
+            background: var(--bg);
+            width: 280px;
+              overflow-y: auto;
+              transition: width 300ms;
+          }
+
+          .brand {
+              padding: .5rem 1rem;
+              display: flex;
+              color: var(--main);
+              align-items: center;
+              height: 70px;
+          }
+
+          .brand span {
+              font-size: 1.8rem;
+              margin-right: .5rem;
+          }
+          .sidebar-user {
+              margin: 1.8rem 0rem;
+          }
+          .side-img {
+              height: 120px;
+              width: 120px;
+              background-size: cover;
+              background-repeat: no-repeat;
+              margin: auto;
+              border: 4px solid #3e454d;
+              border-radius: 50%;
+          }
+          .user {
+              text-align: center;
+              color: #ffffff;
+              margin-top: .5rem;
+          }
+          .user small {
+              display: inline-block;
+              color: var(--main);
+          }
+          .sidemenu{
+              padding: .5rem;
+              overflow-y: auto;
+          }
+          .sidemenu li {
+              margin-bottom: .9rem;
+          }
+          .sidemenu a {
+              color: #ffffff;
+              font-size: .85rem;
+              display: flex;
+              align-items: center;
+          }
+          .sidemenu a span:first-child {
+              font-size: 1.3rem;
+              padding: 0rem .6rem;
+          }
+          .sidemenu a.active {
+              background: var(--main);
+              color: #ffffff;
+              border-radius: 4px;
+              height: 45px;
+          }
+          .main-content {
+              margin-left: 280px;
+              min-height: 100vh;
+              background: var(--bg-body);
+              padding: .5rem 1rem;
+              transition: margin-left 300ms;
+          }
+          header {
+              height: 70px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              background: var(--bg);
+              padding: 0rem 1rem;
+              position: fixed;
+              left: calc(280px + .5rem);
+              right: 1rem;
+              top: .5rem;
+              border-radius: 3px;
+              transition: left 300ms;
+          }
+          .menu-toggler {
+              height: 45px;
+              width: 45px;
+              background: var(--main);
+              display: grid;
+              color: #ffffff;
+              place-items: center;
+              border-radius: 5px;
+          }
+          .search {
+              display: flex;
+              width: 300px;
+              border-radius: 30px;
+              overflow-x: hidden;
+              border: 3px solid #3e454d;
+              align-items: center;
+          }
+          .search span {
+              font-size: 1.3rem;
+              padding-left: 1rem;
+              color: #ffffff;
+          }
+          .search input {
+              flex: 1;
+              height: 42px;
+              border: none;
+              background: transparent;
+              padding: 1rem;
+              color: #ffffff;
+          }
+          .head-icons span {
+            font-size: 1.5rem;
+            margin-left: 1rem;
+            color: #ffffff;
+          }
+          main {
+            margin-top: calc(70px + .5rem);
+            padding: 1rem 0rem;
+          }
+          .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 4rem;
+          }
+          .card {
+            background: var(--bg);
+            padding: 2rem 1rem;
+            border-radius: 3px;
+          }
+          .card-icon {
+            text-align: center;
+           }
+           .card-icon span {
+            height: 55px;
+            width: 55px;
+            color: #ffffff;
+            font-size: 2.5rem;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+           }
+           .follow span {
+            color: #0072f2;
+            background: #e5f3fe;
+           }
+           .likes span {
+            color: #f42a26;
+            background: #fde9ea;
+           }
+           .comments span {
+            color: #ffbc01;
+            background: #fff8e5;
+           }
+           .card-info {
+            text-align: center;
+            margin-top: .6rem;
+           }
+           .card-info h2 {
+            font-size: 3rem;
+            color: #efefef;
+           }
+           .card-info small {
+            display: inline-block;
+            color: var(--main);
+            font-weight: 500;
+           }
+           .card-images {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1.3rem;
+           }
+           .card-images div {
+            height: 45px;
+            width: 45px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 50%;
+            border: 4px solid #efefef;
+            position: relative;
+            margin-left: -15px;
+           }
+           .card-images div:first-child {
+            margin-left: 0;
+           }
+           .chart-grid {
+                display: grid;
+                grid-template-columns: 64% auto;
+                margin-top: 3rem;
+                grid-gap: 2rem;
+           }
+           .chart-follow, .chart-sales {
+                background: var(--bg);
+                padding: 1rem;
+                border-radius: 3px;
+           }
+           .chart-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #efefef;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #3e454d;
+            margin-bottom: 1rem;
+           }
+
+           .close-mobile-menu {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                bottom: 0;
+                display: block;
+                height: 100%;
+                width: calc(100% - 280px);
+                background: transparent;
+                z-index: 100;
+                transition: right 300ms;
+           }
+
+           @media only screen and (max-width: 1124px) {
+             #menu-toggle ~ .sidebar .brand h2 {
+            display: none;
+          }
+
+          #menu-toggle ~ .sidebar .side-img {
+            height: 50px;
+            width: 50px;
+          }
+
+          #menu-toggle ~ .sidebar .user {
+            display: none;
+          }
+
+          #menu-toggle ~ .sidebar li a span:last-child {
+            display: none;
+          }
+
+          #menu-toggle ~ .sidebar  {
+            width: 65px;
+          }
+
+          #menu-toggle ~ .main-content header {
+            left: calc(65px + 1rem);
+          }
+
+          #menu-toggle ~ .main-content {
+            margin-left: 65px;
+          }
+
+
+          #menu-toggle:checked ~ .sidebar .brand h2 {
+            display: block;
+          }
+
+          #menu-toggle:checked ~ .sidebar .side-img {
+            height: 120px;
+            width: 120px;
+          }
+
+          #menu-toggle:checked ~ .sidebar .user {
+            display: block;
+          }
+
+          #menu-toggle:checked ~ .sidebar li a span:last-child {
+            display: inline-block;
+          }
+
+          #menu-toggle:checked ~ .sidebar  {
+            width: 280px;
+            z-index: 100;
+          }
+
+          #menu-toggle:checked ~ .close-mobile-menu  {
+            right: 0;
+          }
+
+           }
+
+           @media only screen and (max-width: 845px) {
+                .cards {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                .chart-grid {
+                    grid-template-columns: 100%;
+                }
+           }
+
+           @media only screen and (max-width: 768px) {
+                .search {
+                    display: none;
+                }
+           }
+
+           @media only screen and (max-width: 630px) {
+                .cards {
+                    grid-template-columns: 100%;
+                }
+           }
+
+      </style>
+
+  </head>
+  <body>
+  <input type="checkbox" id="menu-toggle">
+    <div class="sidebar">
+        <div class="brand">
+            <span class="lab la-affiliatetheme"></span>
+            <h3>Mwalimu Cars</h3>
+        </div>
+
+        <div class="sidemenu">
+            <div class="side-user">
+                <div class="side-img" style="background-image: url(/media/images/animate_logo/mc_logo_3.png); display: flex; justify-content: center; align-items: center"></div>
+                <div class="user">
+                    <small>Mwalimu Cars</small>
+{#                    <p>Norbert Odhiambo</p>#}
+                </div>
+            </div>
+
+            <ul>
+                <li>
+                    <a href="{% url 'products:admin_dashboard' %}" class="active">
+                        <span class="las la-home"></span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:index' %}">
+                        <span class="las la-balance-scale"></span>
+                        <span>Finance</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:analytics' %}">
+                        <span class="las la-chart-pie"></span>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:calendar' %}">
+                        <span class="las la-calendar"></span>
+                        <span>Calendar</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:adminproductcreate' %}">
+                        <span class="las la-upload"></span>
+                        <span>Upload/Create</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:adminproductlist' %}">
+                        <span class="las la-book"></span>
+                        <span>View stock</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:users' %}">
+                        <span class="las la-users"></span>
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:orders' %}">
+                        <span class="las la-shopping-cart"></span>
+                        <span>Orders/Bookings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:index' %}">
+                        <span class="las la-eye"></span>
+                        <span>Visit site</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:mails' %}">
+                        <span class="las la-envelope"></span>
+                        <span>Mailbox</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:tasks' %}">
+                        <span class="las la-check-circle"></span>
+                        <span>Tasks</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:authenticate' %}">
+                        <span class="las la-lock"></span>
+                        <span>Authentication</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:pricing' %}">
+                        <span class="las la-file-invoice-dollar"></span>
+                        <span>Pricing</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="main-content">
+        <header>
+            <label for="menu-toggle" class="menu-toggler">
+                <span class="las la-bars"></span>
+            </label>
+            <div class="search">
+                <span class="las la-search"></span>
+                <input type="search" placeholder="Enter keyword">
+            </div>
+            <div class="head-icons">
+                <span class="las la-bell"></span>
+                <span class="las la-bookmark"></span>
+                <span class="las la-comment"></span>
+            </div>
+        </header>
+
+        <main>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-icon follow">
+                        <span class="las la-users"></span>
+                    </div>
+                    <div class="card-info">
+                        <h2>3,281</h2>
+                        <small>Total followers</small>
+                    </div>
+                    <div class="card-images">
+                        <div style="background-image: url(../../media/admins/IMG_4555.JPG)"></div>
+                        <div style="background-image: url(../../media/admins/IMG_4555.JPG)"></div>
+                        <div style="background-image: url(../../media/admins/IMG_4555.JPG)"></div>
+                        <div style="background-image: url(../../media/admins/IMG_4555.JPG)"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon likes">
+                        <span class="las la-heart"></span>
+                    </div>
+                    <div class="card-info">
+                        <h2>1,955</h2>
+                        <small>Total likes</small>
+                    </div>
+                    <div class="card-images">
+                        <div style="background-image: url(../../media/images/IMG_4555.JPG)"></div>
+                        <div style="background-image: url(../../media/images/IMG_4555.JPG)"></div>
+                        <div style="background-image: url(../../media/images/IMG_4555.JPG)"></div>
+                        <div style="background-image: url(../../media/images/IMG_4555.JPG)"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon comments">
+                        <span class="las la-comment"></span>
+                    </div>
+                    <div class="card-info">
+                        <h2>457</h2>
+                        <small>Total comments</small>
+                    </div>
+                    <div class="card-images">
+                        <div style="background-image: url(../../media/images/IMG_4555.JPG)"></div>
+                        <div style="background-image: url(../../media/images/IMG_4555.JPG)"></div>
+                        <div style="background-image: url(../../media/images/IMG_4555.JPG)"></div>
+                        <div style="background-image: url(../../media/images/IMG_4555.JPG)"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="chart-grid">
+                <div class="chart-follow">
+                    <div class="chart-head">
+                        <h3>Users</h3>
+                        <span class="las la-cog"></span>
+                    </div>
+                    <div id="myfirstchart" style="height: 250px;"></div>
+                </div>
+                <div class="chart-sales">
+                    <div class="chart-head">
+                        <h3>Sales</h3>
+                        <span class="las la-ellipsis-h"></span>
+                    </div>
+                    <div id="donut-example" style="height: 250px;"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+  <label class="close-mobile-menu" for="menu-toggle"></label>
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+    <script type="text/javascript">
+
+        new Morris.Line({
+  // ID of the element in which to draw the chart.
+  element: 'myfirstchart',
+  lineColors: ['orange'],
+  // Chart data records -- each entry in this array corresponds to a point on
+  // the chart.
+  data: [
+    { year: '2008', value: 20 },
+    { year: '2009', value: 10 },
+    { year: '2010', value: 5 },
+    { year: '2011', value: 5 },
+    { year: '2012', value: 14 },
+    { year: '2013', value: 5 },
+    { year: '2014', value: 5 },
+    { year: '2015', value: 20 }
+  ],
+  // The name of the data record attribute that contains x-values.
+  xkey: 'year',
+  // A list of names of data record attributes that contain y-values.
+  ykeys: ['value'],
+  // Labels for the ykeys -- will be displayed when you hover over the
+  // chart.
+  labels: ['Value']
+});
+
+Morris.Donut({
+  element: 'donut-example',
+  data: [
+    {label: "Download Sales", value: 12},
+    {label: "In-Store Sales", value: 30},
+    {label: "Mail-Order Sales", value: 20}
+  ],
+  colors: ['orange', '#0072f2', '#f42a26'],
+  labelColor: '#ffffff'
+});
+
+    </script>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

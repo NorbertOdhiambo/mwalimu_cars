@@ -1,0 +1,543 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="wrapper" style="background-color: #000080">
+        <nav class="navbar navbar-light bg-transparent">
+            <div class="container">
+                <div id="myNav" class="overlay">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <div class="overlay-content">
+                        <a href="{% url 'products:index' %}">Home</a>
+                        <a href="#">Services</a>
+                        <a href="#">Clients</a>
+                        <a href="#">Contact</a>
+                        <a href="https://goo.gl/maps/HS9xcYXJ96iqL34x9">Location</a>
+                    </div>
+                </div>
+                <span style="font-size:30px;cursor:pointer; color: white" onclick="openNav()">&#9776;</span>
+
+                <a class="navbar-brand" href="#">
+                    <img src="/media/images/slider_arrows/mc_logo_3.png" alt="" width="160" height="auto">
+                </a>
+                <div class="square" style="background-color: #000080; height: 50px; width: 50px"></div>
+            </div>
+        </nav>
+    </div>
+
+    <div style="text-align: right;">
+    {% if user.is_authenticated %}
+        <span id="user-name" style=" font-size: 1.5rem">{{ request.user }}</span>
+        <img src="/media/images/user_logo.png" alt="" style="height: 40px; width: 40px; border-radius: 50%; border: 4px solid #fff; position: relative;">
+        <a href="{% url 'products:logout' %}">
+            <span style="padding-right: 10px;">Logout</span>
+        </a>
+
+        {% else %}
+        <div class="login" style="padding-top: 10px; padding-right: 15px;">
+        <a href="{% url 'products:login' %}">
+            <button type="button" class="btn btn-primary">login/signup</button>
+        </a>
+        </div>
+
+
+
+    {% endif %}
+
+    </div>
+
+    <div id="content-wrapper">
+
+
+        <div class="column">
+            <img id=featured src="{{ product.image.url }}">
+
+            <div id="slide-wrapper">
+                <img id="slideLeft" class="arrow" src="/media/images/slider_arrows/left_slider_arrow.png">
+
+                <div id="slider">
+                    <img class="thumbnail active" src="{{ product.image.url }}">
+                    {% for pi in product.productimage_set.all %}
+                        <img class="thumbnail" src="{{ pi.image.url }}" alt="">
+                    {% endfor %}
+
+                </div>
+
+                <img id="slideRight" class="arrow" src="/media/images/slider_arrows/right_slider_arrow.png">
+            </div>
+        </div>
+
+        <div class="column">
+
+            <h4 class="product-title">{{ product.make }} (Viewed {{ product.view_count }} times)</h4>
+            <a href="#" class="product-link">click to see more available {{ product.car_brand }} cars</a>
+            <div class="product-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>4.3(49)</span>
+                <span class="fa fa-user"></span>
+            </div>
+            <div class="product-price">
+                <p>Ksh{{ product.price }}</p>
+            </div>
+            <div class="product-detail">
+                <h2>Description: </h2>
+                <p>{{ product.description }}</p>
+                <ul>
+                    <li>Color: <span>{{ product.colour }}</span></li>
+                    <li>Engine capacity: <span>{{ product.cc }}</span></li>
+                    <li>Transmission: <span>{{ product.transmission }}</span></li>
+                    <li>Interior: <span>{{ product.interior }}</span></li>
+                    <li>Fuel: <span>{{ product.fuel }}</span></li>
+                    <li>Mileage: <span>{{ product.mileage }}</span></li>
+                </ul>
+            </div>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Schedule appointment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="name-text" class="col-form-label">Name:</label>
+                                    <input type="text" name="name" class="form-control" id="name-text">
+                                    <!--            <textarea class="form-control" id="message-text"></textarea>-->
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="number" class="col-form-label">Phone number:</label>
+                                    <input type="number" name="phnnumber" class="form-control" id="number" placeholder="optional">
+                                    <!--            <textarea class="form-control" id="message-text"></textarea>-->
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="address" class="col-form-label">Address:</label>
+                                    <input type="text"name="address" class="form-control" id="autonumber" placeholder="optional">
+                                    <!--            <textarea class="form-control" id="message-text"></textarea>-->
+                                </div>
+
+                                    {% if user.is_authenticated %}
+                                        <div class="mb-3">
+                                    <label for="recipient-name" class="col-form-label">Email address <i
+                                            class="fas fa-envelope"></i>:</label>
+                                    <!--            <input type="text" class="form-control" id="recipient-name">-->
+                                    {{ user.email }}
+                                </div>
+
+                                        {% else %}
+                                        <div class="mb-3">
+                                    <label for="recipient-name" class="col-form-label">Email address <i
+                                            class="fas fa-envelope"></i>:</label>
+                                    <!--            <input type="text" class="form-control" id="recipient-name">-->
+                                    <input type="email" name="email" class="text-input contact-input"
+                                           id="recipient-name">
+                                </div>
+
+                                    {% endif %}
+
+
+                                <div class="mb-3">
+                                    <label for="message-text" class="col-form-label">Date/Time:</label>
+                                    <input type="datetime-local" name="schedule" class="form-control" id="message-text">
+                                    <!--            <textarea class="form-control" id="message-text"></textarea>-->
+                                </div>
+                            <button type="submit" class="btn btn-success">Send <i class="fas fa-paper-plane"></i></button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="popup" onclick="myFunction()">
+                <div class="product-booking">
+                    <button type="button" class="btn">Book Appointment</button>
+                </div>
+                <span class="popuptext" id="myPopup">You are required to schedule visiting date that's comfortable with you, together with your e-mail address for reminder and communication...Thank you
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+          data-bs-whatever="@getbootstrap">Click to continue</button>
+  </span>
+
+            </div>
+
+            <div class="social-links">
+                <p>Share on:</p>
+                <a href="https://web.facebook.com/Mwalimu-Cars-767946726744364">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/+254715412469" class="whatsapp_float" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+<!--    <div class="page-wrapper">-->
+
+<!--    </div>-->
+
+    <!-- page-wrapper -->
+    <div class="page-wrapper">
+
+        <!-- products slider -->
+        <div class="post-slider">
+            <h1 style="text-align: center; font-family: 'Quicksand', sans-serif;">Vehicles on market</h1>
+            <i class="fas fa-chevron-left prev"></i>
+            <i class="fas fa-chevron-right next"></i>
+
+            <div class="post-wrapper">
+                {% for p in product_list %}
+                    <div class="post">
+                        <div class="row">
+
+                            <div class="col">
+                                <div class="card" style="width: 18rem;">
+                                    <a href="{% url 'products:productdetail' p.slug %}"><img src="{{ p.image.url }}"
+                                                                                             class="card-img-top"
+                                                                                             alt="{{ p.make }} image"></a>
+                                    <div class="card-body">
+                                        <p class="card-text"><h5>{{ p.make }}</h5>
+                                        <ul style="list-style:none">
+                                            <li><h6>{{ p.model }}</h6></li>
+                                            <li><h6>{{ p.cc }}</h6></li>
+                                            <li><h6>{{ p.fuel }}</h6></li>
+
+                                            {% if p.negotiable == True %}
+                                                <li>
+                                                    <h5 style="color: rgb(0, 179, 0)">Ksh{{ p.price }}<sup
+                                                            style="color: black">Negotiable...</sup>
+                                                    </h5>
+                                                </li>
+                                            {% else %}
+                                                <li>
+                                                    <h5 style="color: rgb(0, 179, 0)">Ksh{{ p.price }}</h5>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+{#                <div class="post">2</div>#}
+{#                <div class="post">3</div>#}
+{#                <div class="post">4</div>#}
+{#                <div class="post">5</div>#}
+            </div>
+        </div>
+
+
+    </div>
+
+<!--<div class="card-body">
+        <h1>{% block title %} {{ post.title }} {% endblock title %}</h1>
+        <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
+        <p class="card-text ">{{ post.content | safe }}</p>
+    </div>-->
+
+<!-- <h2>{{ comments.count }} comments</h2>-->
+<!--    {% for comment in comments %}-->
+<!--        <div class="comments" style="padding: 10px;">-->
+<!--          <p class="font-weight-bold">-->
+<!--            {{ comment.name }}-->
+<!--            <span class=" text-muted font-weight-normal">-->
+<!--              {{ comment.created_on }}-->
+<!--            </span>-->
+<!--          </p>-->
+<!--          {{ comment.body | linebreaks }}-->
+<!--    <hr/>-->
+<!--        </div>-->
+<!--        {% endfor %}-->
+
+
+<!--  <div class="card-body">-->
+<!--        {% if new_comment %}-->
+<!--        <div class="alert alert-success" role="alert">-->
+<!--          Your comment is awaiting moderation-->
+<!--        </div>-->
+<!--        {% else %}-->
+<!--        <h3>Leave a comment</h3>-->
+<!--        <form method="post" style="margin-top: 1.3em;">-->
+<!--          {{ comment_form.as_p }}-->
+<!--          {% csrf_token %}-->
+<!--          <button type="submit" class="btn btn-primary">Submit</button>-->
+<!--        </form>-->
+<!--        {% endif %}-->
+<!--  </div>-->
+
+    <div class="page-wrapper">
+
+        <!-- products slider -->
+{#        <div class="post-slider">#}
+{#            <h1 style="text-align: center; font-family: 'Quicksand', sans-serif;">Vehicles on market</h1>#}
+{#            <i class="fas fa-chevron-left prev"></i>#}
+{#            <i class="fas fa-chevron-right next"></i>#}
+{#<h2>{{ comments.count }} comment(s)</h2>#}
+{#            <div class="post-wrapper">#}
+{##}
+{#{% for comment in comments %}#}
+{#    <div class="card" style="width: 18rem;">#}
+{#  <div class="card-body">#}
+{#    <h5 class="card-title">#}
+{#        <p class="font-weight-bold">#}
+{#            {{ comment.name }}</h5>#}
+{#    <h6 class="card-subtitle mb-2 text-muted">#}
+{#        <span class=" text-muted font-weight-normal">#}
+{#              {{ comment.created_on }}#}
+{#            </span></h6>#}
+{#    <p class="card-text">{{ comment.body | linebreaks }}</p>#}
+{#      </div>#}
+{#</div>#}
+{#{% endfor %}#}
+{#                <div class="post">2</div>#}
+{#                <div class="post">3</div>#}
+{#                <div class="post">4</div>#}
+{#                <div class="post">5</div>#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{##}
+{#    </div>#}
+
+    <h2>{{ comments.count }} comment(s)</h2>
+{% for comment in comments %}
+    <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">
+        <p class="font-weight-bold">
+            {{ comment.name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+        <span class=" text-muted font-weight-normal">
+              {{ comment.created_on }}
+            </span></h6>
+    <p class="card-text">{{ comment.body | linebreaks }}</p>
+      </div>
+</div>
+{% endfor %}
+
+<!--<h2>{{ comments.count }} comment(s)</h2>
+    {% for comment in comments %}
+        <div class="comments" style="padding: 10px;">
+          <p class="font-weight-bold">
+            {{ comment.name }}
+            <span class=" text-muted font-weight-normal">
+              {{ comment.created_on }}
+            </span>
+          </p>
+          {{ comment.body | linebreaks }}
+    <hr/>
+        </div>
+        {% endfor %}-->
+
+
+  <div class="card-body">
+        {% if new_comment %}
+        <div class="alert alert-success" role="alert">
+          Your comment is awaiting moderation
+        </div>
+        {% else %}
+        <h3>Leave a comment</h3>
+        <form method="post" style="margin-top: 1.3em;">
+          {{ comment_form.as_p }}
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        {% endif %}
+  </div>
+
+<br><br>
+<hr>
+
+<!--<form method="post">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <input type="submit" value="Submit" class="btn btn-outline-success">
+</form>
+
+
+<div class="main-comment-section">
+    {% for comment in comments %}
+        <figure>
+  <blockquote class="blockquote">
+    <p>{{ comment.body }}</p>
+  </blockquote>
+  <figcaption class="blockquote-footer">
+    by <cite title="Source Title">{{ comment.name|capfirst }}</cite>
+  </figcaption>
+</figure>
+    {% endfor %}
+</div>-->
+
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section contact">
+                <h1>Mwalimu Cars</h1>
+                <h4>Contacts</h4>
+                <ul>
+                    <li>Phone no: +254 712345678</li>
+
+                    <li>Email: mwalimu@gmail.com</li>
+
+                    <li>Facebook: <a
+                            href="https://www.facebook.com/search/photos/?q=mwalimu%20cars&sde=AbpdanbpUAcCWFgUJs_x5ftXu5HEdFvI9VauFlzpQLqQJZrGHXGVn3WjQSN3SZ62fT-0Rf1bPqdTIkRHlUWBkXWqig3Bn3WZvK8RSiMNC9GlySdovNAIs7KzCmVwNfLxgvA&_rdc=1&_rdr">facebook</a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="footer-section links">
+                <h4>Quick links</h4>
+                <ul>
+                    <a href="#">
+                        <li>About</li>
+                    </a>
+                    <a href="#">
+                        <li>Contact</li>
+                    </a>
+                    <a href="https://goo.gl/maps/HS9xcYXJ96iqL34x9">
+                        <li>Location</li>
+                    </a>
+                    <a href="#">
+                        <li>Register</li>
+                    </a>
+
+                </ul>
+            </div>
+{#            <div class="footer-section contact-form">#}
+{#                <h4>Contact us</h4>#}
+{#                <br>#}
+{#                <form action="index html" method="post">#}
+{#                    <input type="email" name="email" class="text-input contact-input"#}
+{#                           placeholder="Enter email address...">#}
+{#                    <textarea name="message" class="text-input contact-input"></textarea>#}
+{#                    <button type="submit" class="btn btn-big">#}
+{#                        Send#}
+{#                        <i class="fas fa-envelope"></i>#}
+{#                    </button>#}
+{#                </form>#}
+{#            </div>#}
+        </div>
+        <div class="footer-bottom">
+            &copy;2021 | All rights reserved
+        </div>
+    </div>
+
+
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+    <script type="text/javascript">
+        let thumbnails = document.getElementsByClassName('thumbnail')
+
+        let activeImages = document.getElementsByClassName('active')
+
+        for (var i = 0; i < thumbnails.length; i++) {
+
+            thumbnails[i].addEventListener('mouseover', function () {
+                console.log(activeImages)
+
+                if (activeImages.length > 0) {
+                    activeImages[0].classList.remove('active')
+                }
+
+
+                this.classList.add('active')
+                document.getElementById('featured').src = this.src
+            })
+        }
+
+
+        let buttonRight = document.getElementById('slideRight');
+        let buttonLeft = document.getElementById('slideLeft');
+
+        buttonLeft.addEventListener('click', function () {
+            document.getElementById('slider').scrollLeft -= 180
+        })
+
+        buttonRight.addEventListener('click', function () {
+            document.getElementById('slider').scrollLeft += 180
+        })
+
+        function openNav() {
+            document.getElementById("myNav").style.width = "100%";
+        }
+
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+        }
+
+        // When the user clicks on div, open the popup
+        function myFunction() {
+            var popup = document.getElementById("myPopup");
+            popup.classList.toggle("show");
+        }
+
+
+        $('.post-wrapper').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            nextArrow: $('.next'),
+            prevArrow: $('.prev'),
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+                // You can unslick at a given breakpoint now by adding:
+                // settings: "unslick"
+                // instead of a settings object
+            ]
+        });
+
+
+    </script>
+{% endblock %}

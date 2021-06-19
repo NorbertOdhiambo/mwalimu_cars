@@ -1,0 +1,146 @@
+{% extends 'adminpage/adminbase.html' %}
+
+{% block content %}
+<input type="checkbox" id="menu-toggle">
+    <div class="sidebar">
+        <div class="brand">
+            <span class="lab la-affiliatetheme"></span>
+            <h3>Mwalimu Cars</h3>
+        </div>
+
+        <div class="sidemenu">
+            <div class="side-user">
+                <div class="side-img" style="background-image: url(/media/images/animate_logo/mc_logo_3.png); display: flex; justify-content: center; align-items: center"></div>
+                <div class="user">
+                    <small>Mwalimu Cars</small>
+{#                    <p>Norbert Odhiambo</p>#}
+                </div>
+            </div>
+
+            <ul>
+                <li>
+                    <a href="{% url 'products:admin_dashboard' %}">
+                        <span class="las la-home"></span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:index' %}">
+                        <span class="las la-balance-scale"></span>
+                        <span>Finance</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:analytics' %}">
+                        <span class="las la-chart-pie"></span>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:calendar' %}">
+                        <span class="las la-calendar"></span>
+                        <span>Calendar</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:adminproductcreate' %}">
+                        <span class="las la-upload"></span>
+                        <span>Upload/Create</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:adminproductlist' %}">
+                        <span class="las la-book"></span>
+                        <span>View stock</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:users' %}" class="active">
+                        <span class="las la-users"></span>
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:orders' %}">
+                        <span class="las la-shopping-cart"></span>
+                        <span>Orders/Bookings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:index' %}">
+                        <span class="las la-eye"></span>
+                        <span>Visit site</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:mails' %}">
+                        <span class="las la-envelope"></span>
+                        <span>Mailbox</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:tasks' %}">
+                        <span class="las la-check-circle"></span>
+                        <span>Tasks</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:authenticate' %}">
+                        <span class="las la-lock"></span>
+                        <span>Authentication</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'products:pricing' %}">
+                        <span class="las la-file-invoice-dollar"></span>
+                        <span>Pricing</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="main-content">
+        <header>
+            <label for="menu-toggle" class="menu-toggler">
+                <span class="las la-bars"></span>
+            </label>
+            <div class="search">
+                <span class="las la-search"></span>
+                <input type="search" placeholder="Enter keyword">
+            </div>
+            <div class="head-icons">
+                <span class="las la-bell"></span>
+                <span class="las la-bookmark"></span>
+                <span class="las la-comment"></span>
+            </div>
+        </header>
+    <main>
+        <table class="table">
+  <thead style="color: grey;">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Usr name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Date joined</th>
+        <th scope="col">Last login</th>
+    </tr>
+  </thead>
+  <tbody style="color: white;">
+  {% for usr in usrs %}
+    <tr>
+      <th scope="row" class="list"></th>
+      <td>{{ usr.username }}</td>
+      <td>{{ usr.email }}</td>
+      <td>{{ usr.date_joined }}</td>
+        <td>{{ usr.last_login }}</td>
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+    </main>
+    </div>
+    <label class="close-mobile-menu" for="menu-toggle"></label>
+{% endblock %}
