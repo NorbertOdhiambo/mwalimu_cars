@@ -1,1 +1,1 @@
-web: gurnicorn mwalimucars.wsgi
+web: gunicorn mwalimucars.wsgi
