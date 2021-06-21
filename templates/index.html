@@ -242,7 +242,7 @@
             <div class="col">
 <!--                <div class="card" style="border-color: white;">-->
                     <div class="card" style="border-color: white;">
-                        <img src="{{ b.logo_image.url }}" class="card-img" alt="{{ b.car_brand }} logo image">
+                        <img src="{% static 'b.logo_image' %}" class="card-img" alt="{{ b.car_brand }} logo image">
                         <div class="card-body">
                             <p class="card-text" style="text-align: center; font-family: 'Quicksand', sans-serif;">{{ b.car_brand }}</p>
                         </div>
