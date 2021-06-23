@@ -79,9 +79,9 @@ class ProductForm(forms.ModelForm):
             "negotiable": forms.CheckboxInput(attrs={
                 'class': 'onoffswitch', 'id': 'myonoffswitch'
             }),
-            "image": forms.ImageField(attrs={
+            "image": forms.ImageField(widget=forms.ClearableFileInput(attrs={
                 "class": "form-control"
-            }),
+            })),
             "description": forms.Textarea(attrs={
                 "class": "form-control",
                 "placeholder": "Give a summarized description of the car...",
