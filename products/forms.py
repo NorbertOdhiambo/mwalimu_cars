@@ -79,7 +79,7 @@ class ProductForm(forms.ModelForm):
             "negotiable": forms.CheckboxInput(attrs={
                 'class': 'onoffswitch', 'id': 'myonoffswitch'
             }),
-            "image": forms.ClearableFileInput(attrs={
+            "image": forms.ImageField(attrs={
                 "class": "form-control"
             }),
             "description": forms.Textarea(attrs={
