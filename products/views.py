@@ -9,6 +9,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.generic import CreateView, ListView, View, TemplateView, FormView
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
+from cloudinary.forms import cl_init_js_callbacks
+
 
 # def index(request):
 #     brand = Brand.objects.all()

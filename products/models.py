@@ -2,12 +2,13 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django.utils import timezone
+from cloudinary.models import CloudinaryField
 
 
 class Brand(models.Model):
     car_brand = models.CharField(max_length=250)
     slug = models.SlugField(unique=True)
-    logo_image = models.ImageField(null=True, blank=True, upload_to='images/logo_img')
+    logo_image = CloudinaryField('images/brand_logo_img', null=True, blank=True)
 
     def __str__(self):
         return self.car_brand
@@ -30,7 +31,7 @@ class Product(models.Model):
     year = models.CharField(max_length=10)
     price = models.CharField(max_length=20)
     negotiable = models.BooleanField(default=False, null=True, blank=True)
-    image = models.ImageField(null=True, blank=True, upload_to='images')
+    image = CloudinaryField('images', null=True, blank=True)
     description = models.TextField(null=True)
     view_count = models.PositiveIntegerField(default=0)
     upload_date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
@@ -52,7 +53,7 @@ class Product(models.Model):
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='images/sub_images/')
+    image = CloudinaryField('images/sub_images/', null=True, blank=True)
 
     def __str__(self):
         return self.product.make
