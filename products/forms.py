@@ -11,7 +11,7 @@ class CreateUserForm(UserCreationForm):
 
 
 class ProductForm(forms.ModelForm):
-    more_images = forms.FileField(required=False, widget=forms.ClearableFileInput(attrs={
+    more_images = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={
         "class": "form-control",
         "multiple": True
     }))
