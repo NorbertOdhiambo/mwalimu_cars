@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
+from cloudinary.forms import CloudinaryFileField
 
 
 class CreateUserForm(UserCreationForm):
@@ -14,6 +15,10 @@ class ProductForm(forms.ModelForm):
     more_images = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={
         "class": "form-control",
         "multiple": True
+    }))
+
+    image = forms.ImageField(widget=forms.ClearableFileInput(attrs={
+        "class": "form-control"
     }))
 
     class Meta:
@@ -79,8 +84,8 @@ class ProductForm(forms.ModelForm):
             "negotiable": forms.CheckboxInput(attrs={
                 'class': 'onoffswitch', 'id': 'myonoffswitch'
             }),
-            # "image": forms.ClearableFileInput(attrs={
-            #     "class": "form-control"
+            # "image": CloudinaryFileField(options={
+            #     "tags": "directly_uploaded"
             # }),
             "description": forms.Textarea(attrs={
                 "class": "form-control",
