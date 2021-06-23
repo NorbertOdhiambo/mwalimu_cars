@@ -17,9 +17,9 @@ class ProductForm(forms.ModelForm):
         "multiple": True
     }))
 
-    image = CloudinaryFileField(options={
-        "tags": "directly_uploaded"
-    })
+    # image = forms.ImageField(widget=forms.ClearableFileInput(attrs={
+    #     "class": "form-control"
+    # }))
 
     class Meta:
         model = Product
