@@ -18,8 +18,8 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ['make', 'model', 'new_or_used', 'cc', 'car_brand', 'latest', 'slug', 'colour', 'body_type', 'interior', 'transmission',
-                  'mileage', 'fuel', 'year', 'price', 'negotiable', 'image', 'description']
+        fields = ['make', 'model', 'new_or_used', 'cc', 'car_brand', 'latest', 'slug', 'colour', 'body_type',
+                  'interior', 'transmission', 'mileage', 'fuel', 'year', 'price', 'negotiable', 'image', 'description']
 
         widgets = {
             "make": forms.TextInput(attrs={
@@ -79,12 +79,12 @@ class ProductForm(forms.ModelForm):
             "negotiable": forms.CheckboxInput(attrs={
                 'class': 'onoffswitch', 'id': 'myonoffswitch'
             }),
-            "image": forms.ClearableFileInput(attrs={
-                "class": "form-control"
-            }),
+            # "image": forms.ClearableFileInput(attrs={
+            #     "class": "form-control"
+            # }),
             "description": forms.Textarea(attrs={
                 "class": "form-control",
-                "placeholder": "Give a summarized description of the car...",
+                "placeholder": "Give a brief description of the car...like chairs/seat quality",
             }),
 
         }
