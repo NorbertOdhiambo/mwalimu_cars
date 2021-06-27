@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="wrapper" style="background-color: #000080">
+        <nav class="navbar navbar-light bg-transparent">
+            <div class="container">
+                <div id="myNav" class="overlay">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <div class="overlay-content">
+                        <a href="{% url 'products:index' %}">Home</a>
+                        <a href="#">Services</a>
+                        <a href="#">Clients</a>
+                        <a href="#">Contact</a>
+                        <a href="https://goo.gl/maps/HS9xcYXJ96iqL34x9">Location</a>
+                    </div>
+                </div>
+                <span style="font-size:30px;cursor:pointer; color: white" onclick="openNav()">&#9776;</span>
+
+                <a class="navbar-brand" href="#">
+                    <img src="/media/images/slider_arrows/mc_logo_3.png" alt="" width="160" height="auto">
+                </a>
+                <div class="square" style="background-color: #000080; height: 50px; width: 50px"></div>
+            </div>
+        </nav>
+    </div>
+
+    <div style="text-align: right;">
+    {% if user.is_authenticated %}
+        <span id="user-name" style=" font-size: 1.5rem">{{ request.user }}</span>
+        <img src="/media/images/user_logo.png" alt="" style="height: 40px; width: 40px; border-radius: 50%; border: 4px solid #fff; position: relative;">
+        <a href="{% url 'products:logout' %}">
+            <span style="padding-right: 10px;">Logout</span>
+        </a>
+
+        {% else %}
+        <div class="login" style="padding-top: 10px; padding-right: 15px;">
+        <a href="{% url 'products:login' %}">
+            <button type="button" class="btn btn-primary">login/signup</button>
+        </a>
+        </div>
+    {% endif %}
+    </div>
+
+
+    <div class="orders"></div>
+
+    <div class="page-wrapper"></div>
+
+
+<div class="footer">
+        <div class="footer-content">
+            <div class="footer-section contact">
+                <h1>Mwalimu Cars</h1>
+                <h4>Contacts</h4>
+                <ul>
+                    <li>Phone no: +254 712345678</li>
+
+                    <li>Email: mwalimu@gmail.com</li>
+
+                    <li>Facebook: <a
+                            href="https://www.facebook.com/search/photos/?q=mwalimu%20cars&sde=AbpdanbpUAcCWFgUJs_x5ftXu5HEdFvI9VauFlzpQLqQJZrGHXGVn3WjQSN3SZ62fT-0Rf1bPqdTIkRHlUWBkXWqig3Bn3WZvK8RSiMNC9GlySdovNAIs7KzCmVwNfLxgvA&_rdc=1&_rdr">facebook</a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="footer-section links">
+                <h4>Quick links</h4>
+                <ul>
+                    <a href="#">
+                        <li>About</li>
+                    </a>
+                    <a href="#">
+                        <li>Contact</li>
+                    </a>
+                    <a href="https://goo.gl/maps/HS9xcYXJ96iqL34x9">
+                        <li>Location</li>
+                    </a>
+                    <a href="#">
+                        <li>Register</li>
+                    </a>
+
+                </ul>
+            </div>
+
+{#            <div class="footer-section contact-form">#}
+{#                <h4>Contact us</h4>#}
+{#                <br>#}
+{#                <form action="index html" method="post">#}
+{#                    <input type="email" name="email" class="text-input contact-input"#}
+{#                           placeholder="Enter email address...">#}
+{#                    <textarea name="message" class="text-input contact-input"></textarea>#}
+{#                    <button type="submit" class="btn btn-big">#}
+{#                        Send#}
+{#                        <i class="fas fa-envelope"></i>#}
+{#                    </button>#}
+{#                </form>#}
+{#            </div>#}
+        </div>
+        <div class="footer-bottom">
+            &copy;2021 | All rights reserved
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function openNav() {
+            document.getElementById("myNav").style.width = "100%";
+        }
+
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+        }
+         </script>
+{% endblock %}
+
+{#<!DOCTYPE html>#}
+{#<head>#}
+{#  <meta charset="UTF-8">#}
+{#  <title>Some Title</title>#}
+{#  <meta name="viewport" content="width=device-width, initial-scale=1">#}
+{#  <link rel="icon" href= "Logo.png" type="img/SVG" style="width: 100%; height: 100%">#}
+{#  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">#}
+{#  <style>#}
+{#    body {#}
+{#        margin: 0;#}
+{##}
+{#    }#}
+{##}
+{#    .Header {#}
+{#        background-color: black;#}
+{#        text-align: right;#}
+{#    }#}
+{##}
+{#    .socialmedia {#}
+{#        transform: translate(0, -50%);#}
+{#        align-items: center;#}
+{#    }#}
+{##}
+{#    .socialmedia a{#}
+{#      display:inline;#}
+{#    }#}
+{##}
+{#    h1 {#}
+{#      color:white;#}
+{#      font-family: Verdana;#}
+{#      font-style: italic;#}
+{#      font-size: x-large;#}
+{#      text-align: center; padding-top: 20px;#}
+{#    }#}
+{##}
+{#    @media (max-width:700px){#}
+{#        .headerLogo h1 {#}
+{#            text-align:left;#}
+{#            background-color: yellow;#}
+{#        }#}
+{##}
+{#    }#}
+{#    @media (min-width:1000px){#}
+{#      .socialmedia {#}
+{#        margin-right:100px;#}
+{#      }#}
+{#    }#}
+{#    .preorder button {#}
+{#        background-color: white;#}
+{#        border: 0;#}
+{#        height: 35px;#}
+{#        width: 110px;#}
+{#        margin-left: 35px;#}
+{#    }#}
+{##}
+{#    .footer {#}
+{#        display: flex;#}
+{#        align-items: center;#}
+{#        width: 100%;#}
+{#        height: 90px;#}
+{#        background-color: black;#}
+{#    }#}
+{##}
+{#    .img-fluid{#}
+{#        width: inherit;#}
+{#        height: 782px;#}
+{#    }#}
+{##}
+{#    .mySlides~.mySlides {#}
+{#        position: absolute;#}
+{#        top: 0;#}
+{#        left: 100%;#}
+{#        transition: 0.7s;#}
+{#    }#}
+{#    a{text-decoration: none;}#}
+{#    a:hover{#}
+{#        text-decoration:none;#}
+{#    }#}
+{#  </style>#}
+{#</head>#}
+{#<body>#}
+{#<div class="Header" id="myHeader">#}
+{#  <a class="headerLogo" href="file:///C:/Noah's%20stuff/Home.html" ><h1>Some Title</h1></a>#}
+{#  <div class="socialmedia">#}
+{#      <a class="Facebook" href="https://www.facebook.com/" target="_blank"><img src = "https://images.seeklogo.net/2016/09/facebook-icon-preview-1.png" width="50px" height="50px"></a>#}
+{#      <a class="Instagram" href="https://www.instagram.com/"><img src = "https://images.seeklogo.net/2016/06/Instagram-logo.png"  width="50px" height="50px"></a>#}
+{#      <a class="Youtube" href="https://www.youtube.com/channel/" target="_blank"><img src = "https://images.seeklogo.net/2016/06/YouTube-icon.png" width="50px" height="50px"></a>#}
+{#      <button style = "background-color: white;">Pre-Order</button>#}
+{#  </div>#}
+{#</div>#}
+{#</body>#}
+{#</html>#}
+{##}
+{##}
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block content %}#}
+{##}
+{#    <div class="container">#}
+{#                <div class="row">#}
+{#                    <div class="col-md-10 mx-auto">#}
+{#                        <h3 style="color: gray">Add New product</h3>#}
+{#                        <hr>#}
+{#                        <form action="" method="POST" enctype="multipart/form-data" style="padding-bottom: 20px; color: white">#}
+{#                            {% csrf_token %}#}
+{#                            {{ form.as_p }}#}
+{#                            <button class="btn btn-info">Submit Data</button>#}
+{#                        </form>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#    <form action="" onsubmit="return doSubmit(this)">#}
+{#    <div style="padding: 40px">#}
+{#    <input type="radio"  id="r1">#}
+{#        <input type="radio" value="{% url 'products:latest' %}" name="url" id="r2">#}
+{#        <input type="submit" value="{% url 'products:index' %}" name="url" id="r1" checked style="position: absolute">#}
+{#        <label for="r1" style="position: relative; height: 100px; width: 100px; background-color: deepskyblue; align-items: center; justify-content: center">submit</label>#}
+{#    </div>#}
+{#        <div style="text-align: center"><input type="submit" value="{% url 'products:index' %}" id="test"style="position: absolute">#}
+{#        <label for="test" style="position: relative; height: 100px; width: 100px; background-color: deepskyblue; align-items: center; justify-content: center">submit</label>#}
+{#        </div>#}
+{#    </form>#}
+{##}
+{#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>#}
+{##}
+{##}
+{##}
+{#    <script type="text/javascript">#}
+{##}
+{#  function doSubmit(form) {#}
+{#    var urls = form['url'];#}
+{#    var i = urls && urls.length;#}
+{#    while (i--) {#}
+{#      if (urls[i].checked) {#}
+{#        window.location = urls[i].value;#}
+{#      }#}
+{#    }#}
+{#    return false;#}
+{#  }#}
+{##}
+{#  </script>#}
+{##}
+{##}
+{##}
+{#{% endblock %}#}

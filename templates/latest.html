@@ -9,7 +9,7 @@
                     <div class="overlay-content">
                         <a href="{% url 'products:index' %}">Home</a>
                         <a href="#">Services</a>
-                        <a href="#">Clients</a>
+                        <a href="#">About</a>
                         <a href="#">Contact</a>
                         <a href="https://goo.gl/maps/HS9xcYXJ96iqL34x9">Location</a>
                     </div>
@@ -19,12 +19,7 @@
                 <a class="navbar-brand" href="#">
                     <img src="/media/images/slider_arrows/mc_logo_3.png" alt="" width="160" height="auto">
                 </a>
-                <div class="square" style="background-color: #000080; height: 50px; width: 50px"></div>
-            </div>
-        </nav>
-    </div>
-
-    <div style="text-align: right;">
+                <div style="text-align: right;">
         {% if user.is_authenticated %}
             <span id="user-name" style=" font-size: 1.5rem">{{ request.user }}</span>
             <img src="/media/images/user_logo.png" alt=""
@@ -45,6 +40,12 @@
         {% endif %}
 
     </div>
+{#                <div class="square" style="background-color: #000080; height: 50px; width: 50px"></div>#}
+            </div>
+        </nav>
+    </div>
+
+
 
     <div class="parallax">
         {#    <h1 style="text-align: right">Hello...</h1>#}
@@ -152,5 +153,15 @@
             &copy;2021 | All rights reserved
         </div>
     </div>
+
+    <script type="text/javascript">
+        function openNav() {
+            document.getElementById("myNav").style.width = "100%";
+        }
+
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+        }
+         </script>
 
 {% endblock %}

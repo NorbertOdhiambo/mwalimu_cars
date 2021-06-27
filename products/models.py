@@ -14,7 +14,32 @@ class Brand(models.Model):
         return self.car_brand
 
 
+class Feature(models.Model):
+    features = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.features
+
+
 class Product(models.Model):
+    style = (
+        ('Hatchback', 'Hatchback'),
+        ('Convertible', 'Convertible'),
+        ('Coupe', 'Coupe'),
+        ('Sedan', 'Sedan'),
+        ('Sports car', 'Sports car'),
+        ('Notchback', 'Notchback'),
+        ('SUV', 'SUV'),
+        ('Luxury', 'Luxury'),
+        ('Station wagon/Estate car', 'Station wagon/Estate car'),
+        ('Super car', 'Super car'),
+        ('MUV', 'MUV'),
+        ('Pickup truck/Pickup', 'Pickup truck/Pickup'),
+        ('Minivan/Van', 'Minivan/Van'),
+        ('Crossover', 'Crossover'),
+        ('Buggy', 'Buggy')
+    )
+
     make = models.CharField(max_length=255)
     model = models.CharField(max_length=255)
     new_or_used = models.BooleanField(default=False, null=True, blank=True)
@@ -23,16 +48,20 @@ class Product(models.Model):
     latest = models.BooleanField(default=False, null=True, blank=True)
     slug = models.SlugField(unique=True)
     colour = models.CharField(max_length=20)
-    body_type = models.CharField(max_length=20)
-    interior = models.CharField(max_length=30)
-    transmission = models.CharField(max_length=30)
+    features = models.ManyToManyField(Feature, blank=True)
+    body_type = models.CharField(max_length=100, blank=True, choices=style)
+    trans = (
+        ('Automatic', 'Automatic'),
+        ('Manual', 'Manual')
+    )
+    transmission = models.CharField(max_length=30, null=True, blank=True, choices=trans)
     mileage = models.CharField(max_length=10)
     fuel = models.CharField(max_length=20)
     year = models.CharField(max_length=10)
     price = models.CharField(max_length=20)
     negotiable = models.BooleanField(default=False, null=True, blank=True)
     image = CloudinaryField('images', null=True, blank=True)
-    description = models.TextField(null=True)
+    description = models.TextField(null=True, blank=True)
     view_count = models.PositiveIntegerField(default=0)
     upload_date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
 
@@ -81,8 +110,9 @@ class SliderArrows(models.Model):
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    full_name = models.CharField(max_length=150)
-    joined_on = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return str(self.user)
 
 
 class Order(models.Model):

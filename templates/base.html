@@ -160,7 +160,7 @@
         }
 
         #featured {
-            max-width: 500px;
+            max-width: 400px;
             max-height: 600px;
             object-fit: cover;
             cursor: pointer;
@@ -171,7 +171,7 @@
         .thumbnail {
             object-fit: cover;
             max-width: 180px;
-            max-height: 100px;
+            max-height: 150px;
             cursor: pointer;
             opacity: 0.5;
             margin: 5px;
@@ -188,7 +188,7 @@
         }
 
         #slide-wrapper {
-            max-width: 500px;
+            max-width: 400px;
             display: flex;
             min-height: 100px;
             align-items: center;
@@ -301,18 +301,28 @@
         .product-detail ul {
             margin: 1rem 0;
             font-size: 0.9rem;
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 2rem;
         }
 
-        .product-detail ul li {
+        .product-detail {
+            {#margin: 0.4rem 0;#}
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 2rem;
+        }
+
+        .cardss {
             margin: 0;
-            list-style: none;
             background: url("/media/images/slider_arrows/checked.jpg") left center no-repeat;
             background-size: 18px;
             padding-left: 1.7rem;
-            margin: 0.4rem 0;
             font-weight: 600;
             opacity: 0.9;
         }
+
 
         .product-detail ul li span {
             font-weight: 400;
@@ -419,12 +429,46 @@
             transition: all 0.5s ease;
         }
 
+        .clipboard {
+            border: 1px solid gray;
+            width: 45px;
+            height: 41px;
+            padding-top: 5px;
+            margin-right: 5px;
+            text-align: center;
+            display: inline-block;
+            font-size: 1.3em;
+            border-radius: 5px;
+            transition: all 0.5s ease;
+        }
+
         .social-links a:hover {
             background: #000;
             border: 1px solid white;
             color: white;
             transition: all .5s ease;
         }
+
+        .coms {
+            width: 100px;
+            display: grid;
+                    grid-gap: 1rem;
+        }
+
+        @media only screen and (max-width: 845px) {
+                .coms {
+                    {#max-width: 200px;#}
+                    {#display: flex;#}
+                    {#font-size: 10px;#}
+                    display: grid;
+                    grid-gap: 1rem;
+                    width: 10px;
+                    height: auto;
+                }
+            .coms .col{
+                {#background-color: red;#}
+            }
+           }
 
 
         .footer {
@@ -434,6 +478,7 @@
             width: 100%;
             background: #303036;
             color: #d3d3d3;
+            margin: 0;
         {#color: white;#}
 
         }
@@ -463,6 +508,7 @@
             display: block;
             margin-bottom: 5px;
             font-size: 1.2em;
+            color: white;
         }
 
         .footer .footer-content .links ul a:hover {
@@ -507,6 +553,51 @@
                 right: 35px;
             }
         }
+
+        @media only screen and (max-width: 934px) {
+  {#.content {#}
+  {#  width: 100%;#}
+  {#}#}
+  {##}
+  {#.auth-content {#}
+  {#  width: 50%;#}
+  {#}#}
+  {##}
+  {#.content .main-content .post {#}
+  {#  width: 100%;#}
+  {#}#}
+  {##}
+  {#.content .main-content {#}
+  {#  width: 100%;#}
+  {#  padding: 10px;#}
+  {#}#}
+  {##}
+  {#.content .sidebar {#}
+  {#  width: 100%;#}
+  {#  padding: 10px;#}
+  {#}#}
+  {##}
+  {#.content .sidebar .section.search {#}
+  {#  margin-top: 30px;#}
+  {#}#}
+
+  .footer {
+    height: auto;
+  }
+
+  .footer .footer-content {
+    height: auto;
+    flex-direction: column;
+  }
+
+  .footer .footer-content .contact-form {
+    padding-bottom: 90px;
+  }
+
+  .footer .footer-content .contact-form .contact-btn {
+    width: 100%;
+  }
+}
 
     </style>
 

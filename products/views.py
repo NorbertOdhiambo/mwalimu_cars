@@ -75,6 +75,7 @@ class HomeView(TemplateView):
         paginator = Paginator(all_products, 8)
         page_number = self.request.GET.get('page')
         product_list = paginator.get_page(page_number)
+        comments = Comment.objects.all()
         # try:
         #     post_list = paginator.page(page_number)
         # except PageNotAnInteger:
@@ -87,6 +88,7 @@ class HomeView(TemplateView):
         context['product_list'] = product_list
         brand = Brand.objects.all()
         context['brand'] = brand
+        context['comments'] = comments
         # wm_logo = Watermark.objects.all()
         # context['wm_logo'] = wm_logo
         # context['post_list'] = post_list
@@ -97,6 +99,7 @@ def product_info(request, slug):
     product = Product.objects.get(slug=slug)
     product.view_count += 1
     product.save()
+    goods = Product.objects.all()
     all_products = Product.objects.all().order_by('-id')
     paginator = Paginator(all_products, 8)
     page_number = request.GET.get('page')
@@ -108,13 +111,13 @@ def product_info(request, slug):
 
         if request.POST.get('name') or request.POST.get('phnnumber') or request.POST.get(
                 'address') and request.GET.get('email') and request.POST.get('schedule'):
-            post = Order()
-            post.name = request.POST.get('name')
-            post.phone_no = request.POST.get('phnnumber')
-            post.address = request.POST.get('address')
-            post.email_address = request.GET.get('email', request.user.email)
-            post.customer_scheduled_date = request.POST.get('schedule')
-            post.save()
+            posts = Order()
+            posts.name = request.POST.get('name')
+            posts.phone_no = request.POST.get('phnnumber')
+            posts.address = request.POST.get('address')
+            posts.email_address = request.GET.get('email', request.user.email)
+            posts.customer_scheduled_date = request.POST.get('schedule')
+            posts.save()
             print('data saved to database')
 
         comment_form = CommentForm(data=request.POST)
@@ -146,6 +149,7 @@ def product_info(request, slug):
         'comments': comments,
         'new_comment': new_comment,
         'comment_form': comment_form,
+        'goods': goods
     }
     return render(request, 'product_info.html', context)
 
@@ -199,7 +203,7 @@ def register(request):
             return redirect('products:login')
 
     context = {'form': form}
-    return render(request, 'register2.html', context)
+    return render(request, 'register.html', context)
 
 
 def login_page(request):
@@ -219,7 +223,7 @@ def login_page(request):
             messages.info(request, 'username OR password is incorrect')
 
     context = {}
-    return render(request, 'login2.html', context)
+    return render(request, 'login.html', context)
 
 
 def logoutUser(request):
@@ -228,11 +232,15 @@ def logoutUser(request):
 
 
 def new(request):
-    pass
+    product = Product.objects.all()
+    context = {"product": product}
+    return render(request, 'new.html', context)
 
 
 def used(request):
-    pass
+    product = Product.objects.all()
+    context = {"product": product}
+    return render(request, 'used.html', context)
 
 
 # def latest(request):

@@ -1,7 +1,7 @@
 {% extends 'adminpage/adminbase.html' %}
 
 {% block content %}
-      <input type="checkbox" id="menu-toggle">
+    <input type="checkbox" id="menu-toggle">
     <div class="sidebar">
         <div class="brand">
             <span class="lab la-affiliatetheme"></span>
@@ -10,9 +10,10 @@
 
         <div class="sidemenu">
             <div class="side-user">
-                <div class="side-img" style="background-image: url(/media/images/animate_logo/mc_logo_3.png); display: flex; justify-content: center; align-items: center"></div>
+                <div class="side-img"
+                     style="background-image: url(/media/images/animate_logo/mc_logo_3.png); display: flex; justify-content: center; align-items: center"></div>
                 <div class="user">
-{#                    <small>Software engineer</small>#}
+                    {#                    <small>Software engineer</small>#}
                     <small>Mwalimu Cars</small>
                 </div>
             </div>
@@ -120,40 +121,41 @@
 
         <main>
             <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h3 style="color: grey">Products List</h3><hr>
-            <a href="{% url 'products:adminproductcreate' %}">Add New Product</a>
-            <table class="table table-striped" style="color: white">
-                <thead>
-                    <tr>
-                        <th>SN</th>
-                        <th>Make</th>
-                        <th>Image</th>
-                        <th>Year</th>
-                        <th>Price</th>
-                        <th>Views</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for p in allproducts %}
-                    <tr style="color: white">
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ p.make }}</td>
-                        <td><img src="{{ p.image.url }}" style="height: 60px;" alt=""></td>
-                        <td>{{ p.year }}</td>
-                        <td>{{ p.price }}</td>
-                        <td>{{ p.view_count }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 style="color: grey">Products List</h3>
+                        <hr>
+                        <a href="{% url 'products:adminproductcreate' %}">Add New Product</a>
+                        <table class="table table-striped" style="color: white">
+                            <thead>
+                            <tr>
+                                <th>SN</th>
+                                <th>Make</th>
+                                <th>Image</th>
+                                <th>Year</th>
+                                <th>Price</th>
+                                <th>Views</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for p in allproducts %}
+                                <tr style="color: white">
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ p.make }}</td>
+                                    <td><img src="{{ p.image.url }}" style="height: 60px;" alt=""></td>
+                                    <td>{{ p.year }}</td>
+                                    <td>{{ p.price }}</td>
+                                    <td>{{ p.view_count }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 
-  <label class="close-mobile-menu" for="menu-toggle"></label>
+    <label class="close-mobile-menu" for="menu-toggle"></label>
 
 {% endblock %}

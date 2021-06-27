@@ -39,16 +39,10 @@
             <button type="button" class="btn btn-primary">login/signup</button>
         </a>
         </div>
-
-
-
     {% endif %}
-
     </div>
 
     <div id="content-wrapper">
-
-
         <div class="column">
             <img id=featured src="{{ product.image.url }}">
 
@@ -81,19 +75,51 @@
                 <span class="fa fa-user"></span>
             </div>
             <div class="product-price">
-                <p>Ksh{{ product.price }}</p>
+                {% for p in goods %}
+                    {% if p.negotiable == True %}
+                            <h5 style="color: rgb(0, 0, 0)">Ksh{{ p.price }}<sub
+                                    style="color: grey">Negotiable...</sub>
+                            </h5>
+                    {% else %}
+                            <h5 style="color: rgb(0, 0, 0)">Ksh{{ p.price }}</h5>
+                    {% endif %}
+                {% endfor %}
+
             </div>
-            <div class="product-detail">
                 <h2>Description: </h2>
                 <p>{{ product.description }}</p>
-                <ul>
-                    <li>Color: <span>{{ product.colour }}</span></li>
-                    <li>Engine capacity: <span>{{ product.cc }}</span></li>
-                    <li>Transmission: <span>{{ product.transmission }}</span></li>
-                    <li>Interior: <span>{{ product.interior }}</span></li>
-                    <li>Fuel: <span>{{ product.fuel }}</span></li>
-                    <li>Mileage: <span>{{ product.mileage }}</span></li>
-                </ul>
+
+        <div class="product-detail">
+            <ul>
+                <li><h6><b>Transmission:</b></h6> <img src="https://img.icons8.com/material/20/000000/gearbox-selector.png"/> <span>{{ product.transmission }}</span></li>
+                <li><h6><b>Engine capacity(cc):</b></h6> <img src="https://img.icons8.com/ios-glyphs/20/000000/engine.png"/>  <span>{{ product.cc }}</span></li>
+                <li><h6><b>Color:</b></h6> <img src="https://img.icons8.com/fluent/20/000000/rgb-circle-1.png"/> <span>{{ product.colour }}</span></li>
+                <li><h6><b>Fuel:</b></h6> <img src="https://img.icons8.com/ios-glyphs/20/000000/gas-station.png"/> <span>{{ product.fuel }}</span></li>
+                <li><h6><b>Mileage:</b></h6> <img src="https://img.icons8.com/ios-glyphs/20/000000/speedometer.png"/> <span>{{ product.mileage }}</span></li>
+                <li><h6><b>Year:</b></h6> <span>{{ product.year }}</span></li>
+            </ul>
+        </div>
+
+        <h3>Features</h3>
+            <div class="product-detail">
+{#                <ul>#}
+{#                    <li>Color: <span>{{ product.colour }}</span></li>#}
+{#                    <li>Engine capacity: <span>{{ product.cc }}</span></li>#}
+{#                    <li>Transmission: <span>{{ product.transmission }}</span></li>#}
+{#                    <li>Interior: <span>{{ product.interior }}</span></li>#}
+{#                    <li>Fuel: <span>{{ product.fuel }}</span></li>#}
+{#                    <li>Mileage: <span>{{ product.mileage }}</span></li>#}
+{#                </ul>#}
+                {% for good in goods %}
+{#                    {{ good }}#}
+                    {% for p in good.features.all %}
+                        <div class="cardss">
+                        {{ p }}
+                        </div>
+                    {% endfor %}
+
+                {% endfor %}
+                
             </div>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -107,26 +133,26 @@
                         <div class="modal-body">
                             <form action="" method="post">
                                 {% csrf_token %}
-                                <div class="mb-3">
+                                <div class="col">
                                     <label for="name-text" class="col-form-label">Name:</label>
                                     <input type="text" name="name" class="form-control" id="name-text">
                                     <!--            <textarea class="form-control" id="message-text"></textarea>-->
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="col">
                                     <label for="number" class="col-form-label">Phone number:</label>
                                     <input type="number" name="phnnumber" class="form-control" id="number" placeholder="optional">
                                     <!--            <textarea class="form-control" id="message-text"></textarea>-->
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="col">
                                     <label for="address" class="col-form-label">Address:</label>
                                     <input type="text"name="address" class="form-control" id="autonumber" placeholder="optional">
                                     <!--            <textarea class="form-control" id="message-text"></textarea>-->
                                 </div>
 
                                     {% if user.is_authenticated %}
-                                        <div class="mb-3">
+                                        <div class="col">
                                     <label for="recipient-name" class="col-form-label">Email address <i
                                             class="fas fa-envelope"></i>:</label>
                                     <!--            <input type="text" class="form-control" id="recipient-name">-->
@@ -134,7 +160,7 @@
                                 </div>
 
                                         {% else %}
-                                        <div class="mb-3">
+                                        <div class="col">
                                     <label for="recipient-name" class="col-form-label">Email address <i
                                             class="fas fa-envelope"></i>:</label>
                                     <!--            <input type="text" class="form-control" id="recipient-name">-->
@@ -173,7 +199,7 @@
             </div>
 
             <div class="social-links">
-                <p>Share on:</p>
+                <p>Visit us on:</p>
                 <a href="https://web.facebook.com/Mwalimu-Cars-767946726744364">
                     <i class="fab fa-facebook-f"></i>
                 </a>
@@ -186,6 +212,11 @@
                 <a href="https://wa.me/+254715412469" class="whatsapp_float" target="_blank">
                     <i class="fab fa-whatsapp"></i>
                 </a>
+
+  <p>or copy url to share on:</p>
+                <span class="clipboard"><span class="fas fa-copy"></span></span><h6></h6>
+
+
             </div>
 
         </div>
@@ -539,5 +570,18 @@
         });
 
 
+        var $temp = $("<input>");
+var $url = $(location).attr('href');
+
+$('.clipboard').on('click', function() {
+  $("body").append($temp);
+  $temp.val($url).select();
+  document.execCommand("copy");
+  $temp.remove();
+  $("h6").text("URL copied!").hide().fadeIn('slow').delay(3000).hide(1);
+})
+
+
     </script>
 {% endblock %}
+

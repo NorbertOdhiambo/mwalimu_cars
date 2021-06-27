@@ -23,8 +23,8 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ['make', 'model', 'new_or_used', 'cc', 'car_brand', 'latest', 'slug', 'colour', 'body_type',
-                  'interior', 'transmission', 'mileage', 'fuel', 'year', 'price', 'negotiable', 'image', 'description']
+        fields = ['make', 'model', 'new_or_used', 'cc', 'car_brand', 'latest', 'slug', 'colour', 'features',
+                  'body_type', 'transmission', 'mileage', 'fuel', 'year', 'price', 'negotiable', 'image', 'description']
 
         widgets = {
             "make": forms.TextInput(attrs={
@@ -57,18 +57,14 @@ class ProductForm(forms.ModelForm):
                 "class": "form-control",
                 "placeholder": "Enter car's colour..."
             }),
-            "body_type": forms.TextInput(attrs={
-                "class": "form-control",
-                "placeholder": "Enter body type..."
-            }),
-            "interior": forms.TextInput(attrs={
-                "class": "form-control",
-                "placeholder": "How does the vehicle's interior look? (e.g leather seats)..."
-            }),
-            "transmission": forms.TextInput(attrs={
-                "class": "form-control",
-                "placeholder": "Enter transmission..."
-            }),
+            # "body_type": forms.TextInput(attrs={
+            #     "class": "form-control",
+            #     "placeholder": "Enter body type..."
+            # }),
+            # "transmission": forms.TextInput(attrs={
+            #     "class": "form-control",
+            #     "placeholder": "Enter transmission..."
+            # }),
             "mileage": forms.TextInput(attrs={
                 "class": "form-control"
             }),

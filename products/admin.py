@@ -9,6 +9,7 @@ admin.site.register(LogoAnimation)
 admin.site.register(Poster)
 admin.site.register(Customer)
 admin.site.register(Order)
+admin.site.register(Feature)
 
 
 class ProductAdmin(SummernoteModelAdmin):

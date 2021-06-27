@@ -136,8 +136,8 @@
                     </tr>
                 </thead>
                 <tbody style="color: white">
-                    <tr>
                     {% for p in all_orders %}
+                    <tr>
                     <th scope="row" class="list"></th>
 {#                        <td>{{ forloop.counter }}</td>#}
                         <td>{{ p.order_by }}</td>
@@ -149,6 +149,7 @@
                         <td>{{ p.email_address }}</td>
                         <td>{{ p.address }}</td>
                         <tb>{{ p.customer_scheduled_date }}</tb>
+                    <tr>
                     {% endfor %}
                     </tr>
                 </tbody>

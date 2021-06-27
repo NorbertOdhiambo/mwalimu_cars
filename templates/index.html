@@ -275,6 +275,28 @@
         </div>
     </div>
 
+<div class="post-wrapper">
+{% for comment in comments %}
+<div class="coms">
+    <div class="card mb-3" >
+  <div class="row g-0">
+    <div class="col">
+      <img src="{{ comment.post.image.url }}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col">
+      <div class="card-body">
+        <h6 class="card-title">{{ comment.name }}</h6>
+        <p class="card-text">{{ comment.body }}</p>
+        <p class="card-text"><small class="text-muted">{{ comment.created_on }}</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endfor %}
+</div>
+
+
     <div class="footer">
         <div class="footer-content">
             <div class="footer-section contact">
