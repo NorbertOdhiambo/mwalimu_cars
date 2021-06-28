@@ -299,15 +299,16 @@
         }
 
         .product-detail ul {
-            margin: 1rem 0;
+            margin:  0;
             font-size: 0.9rem;
             list-style: none;
+            text-align: center;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-gap: 2rem;
         }
 
-        .product-detail {
+        .product-details {
             {#margin: 0.4rem 0;#}
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -322,6 +323,27 @@
             font-weight: 600;
             opacity: 0.9;
         }
+
+        @media only screen and (max-width: 700px) {
+              .product-detail ul {
+                  max-width: 100px;
+                  object-fit: cover;
+                  grid-gap: 1.5rem;
+                  padding-left: 10px;
+              }
+                .product-details  {
+                    max-width: 100px;
+                    grid-gap: .8rem;
+                    object-fit: cover;
+                  {#padding-left: 10px;#}
+                }
+                .product-details .cardss {
+                    font-size: 13px;
+                }
+                .social-links {
+                    padding-left: 10px;
+                }
+           }
 
 
         .product-detail ul li span {

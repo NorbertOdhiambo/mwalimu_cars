@@ -29,9 +29,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-s+2cikaxya^9yks!&x8xvik-l0djlo*+wpi=w59g++s2jg1olc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://mwalimucars.herokuapp.com/']
 
 # Application definition
 
@@ -144,3 +144,21 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 django_heroku.settings(locals())
+
+
+# Q_CLUSTER = {
+#     'name': 'mwalimucars',
+#     'workers': 8,
+#     'recycle': 500,
+#     'timeout': 60,
+#     'compress': True,
+#     'save_limit': 250,
+#     'queue_limit': 500,
+#     'cpu_affinity': 1,
+#     'label': 'Django Q',
+#     'redis': {
+#         'host': env.str('REDIS_HOST', 'default host'),
+#         'password': env.str('REDIS_PASSWORD', 'default password'),
+#         'port': env.int('REDIS_PORT', 8000),
+#         'db': 0, }
+# }
