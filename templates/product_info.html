@@ -75,15 +75,14 @@
                 <span class="fa fa-user"></span>
             </div>
             <div class="product-price">
-                {% for p in goods %}
-                    {% if p.negotiable == True %}
-                            <h5 style="color: rgb(0, 0, 0)">Ksh{{ p.price }}<sub
+
+                    {% if product.negotiable == True %}
+                            <h5 style="color: rgb(0, 0, 0)">Ksh{{ product.price }}<sub
                                     style="color: grey">Negotiable...</sub>
                             </h5>
                     {% else %}
-                            <h5 style="color: rgb(0, 0, 0)">Ksh{{ p.price }}</h5>
+                            <h5 style="color: rgb(0, 0, 0)">Ksh{{ product.price }}</h5>
                     {% endif %}
-                {% endfor %}
 
             </div>
                 <h2>Description: </h2>
