@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
 
-{% load static %}
-
 {% block content %}
     <div class="wrapper" style="background-color: #000080">
         <nav class="navbar navbar-light bg-transparent">
@@ -19,7 +17,7 @@
                 <span style="font-size:30px;cursor:pointer; color: white" onclick="openNav()">&#9776;</span>
 
                 <a class="navbar-brand" href="#">
-                    <img src="{% static 'images/slider_arrows/mc_logo_3.png' %}" alt="" width="160" height="auto">
+                    <img src="/media/images/slider_arrows/mc_logo_3.png" alt="" width="160" height="auto">
                 </a>
                 <div class="square" style="background-color: #000080; height: 50px; width: 50px"></div>
             </div>
@@ -29,7 +27,7 @@
     <div style="text-align: right;">
         {% if user.is_authenticated %}
             <span id="user-name" style=" font-size: 1.5rem">{{ request.user }}</span>
-            <img src="{% static 'images/user_logo.png' %}" alt=""
+            <img src="/media/images/user_logo.png" alt=""
                  style="height: 40px; width: 40px; border-radius: 50%; border: 4px solid #fff; position: relative;">
             <a href="{% url 'products:logout' %}">
                 <span style="padding-right: 10px;">Logout</span>
